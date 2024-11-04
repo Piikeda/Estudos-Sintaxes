@@ -4,13 +4,9 @@ import mysql.connector
 #create
 def Create():
     
-    conexao = mysql.connector.connect(
-        host='localhost',
-        user='root_ikeda',
-        password='123456',
-        database='bdyoutube'
-    )
-    cursor = conexao.cursor()
+    conexao, cursor = Connection_DB()
+
+    
     nomeproduto = "coca"
     valor = 2
     comando = f'INSERT INTO vendas( Produto, Valor) VALUES ( "{nomeproduto}" , {valor});'
@@ -25,13 +21,7 @@ def Create():
 #read
 def Read():
     
-    conexao = mysql.connector.connect(
-        host='localhost',
-        user='root_ikeda',
-        password='123456',
-        database='bdyoutube'
-    )
-    cursor = conexao.cursor()
+    conexao, cursor = Connection_DB()
     
     comando = f'SELECT * FROM vendas;'
     cursor.execute(comando)
@@ -44,13 +34,7 @@ def Read():
 #update
 def Update():
    
-    conexao = mysql.connector.connect(
-        host='localhost',
-        user='root_ikeda',
-        password='123456',
-        database='bdyoutube'
-    )
-    cursor = conexao.cursor()
+    conexao, cursor = Connection_DB()
     nomeproduto = "coockies"
     valor = 2315
     comando = f'UPDATE bdyoutube.vendas SET Valor={valor} WHERE produto="{nomeproduto}";'
@@ -65,13 +49,7 @@ def Update():
 #delete
 def Delete():
     
-    conexao = mysql.connector.connect(
-        host='localhost',
-        user='root_ikeda',
-        password='123456',
-        database='bdyoutube'
-    )
-    cursor = conexao.cursor()
+    conexao, cursor = Connection_DB()
     nomeproduto = "coockies"
     comando = f'delete from vendas WHERE produto="{nomeproduto}";'
     cursor.execute(comando)
@@ -79,5 +57,17 @@ def Delete():
     cursor.close()
     conexao.close()
 
+def Connection_DB():
+    conexao = mysql.connector.connect(
+        host='localhost',
+        user='root_ikeda',
+        password='123456',
+        database='bdyoutube'
+    )
+    cursor = conexao.cursor()
+    return conexao,cursor
+
+print(Delete())
+print(Update())
 print(Create())
 print(Read())
